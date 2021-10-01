@@ -37,7 +37,7 @@ Save the output in CSV format:
 ```
 python3 cpe2cve.py --cpe cpe:/a:apache:tomcat:7.0.65 --output result.csv
 ```
-Actually of the ".pdf" extension is not recognized in the argument of the "--output", CSV is the default format.
+Actually if the ".pdf" extension is not recognized in the argument of the "--output", CSV is the default format.
 
 The interface of the Web version is pretty straightforward :
 
