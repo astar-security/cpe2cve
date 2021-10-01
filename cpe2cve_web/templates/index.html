@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>CPE Checker</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/css/bootstrap.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/css/font-awesome.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/css/animate.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/css/hamburgers.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/css/select2.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/css/util.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/css/main.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/css/button.css') }}">
+<meta name="robots" content="noindex, follow">
+</head>
+<body>
+<div class="bg-contact3" >
+  <div class="container-contact3">
+    <div class="wrap-contact3">
+      <form action="" method="POST" class="contact3-form validate-form">
+        <span class="contact3-form-title">
+          Vérifier les vulnérabilités d'un logiciel
+        </span>
+        <div class="wrap-contact3-form-radio">
+          <div class="contact3-form-radio m-r-42">
+            <input class="input-radio3" id="radio1" type="radio" name="choice" value="csv" checked="checked">
+            <label class="label-radio3" for="radio1">
+              Résultat en CSV
+            </label>
+          </div>
+          <div class="contact3-form-radio">
+            <input class="input-radio3" id="radio2" type="radio" name="choice" value="pdf">
+            <label class="label-radio3" for="radio2">
+              Résultat en PDF
+            </label>
+          </div>
+        </div>
+        <div class="wrap-input3 validate-input">
+          <textarea class="input3" name="cots" placeholder="Un logiciel par ligne au format CPE">{{ cots }}</textarea>
+          <span class="focus-input3"></span>
+        </div>
+        <div>
+          <button class="mybutton" name"envoyer">ENVOYER</button>
+        </div>
+      </form>
+      {% if message %}
+        <script>alert('{{ message }}');</script>
+      {% endif %}
+    </div>
+  </div>
+</div>
+</body>
+</html>
