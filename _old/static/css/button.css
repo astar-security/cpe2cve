@@ -1,0 +1,24 @@
+.mybutton{
+  display: inline-block;
+  width: 270px;
+  color: #ffffff;
+  font-size: 16px;
+  padding: 10px;
+  border-radius: 50px;
+  text-align: center;
+  position: relative;
+  border: solid 2px;
+ 
+}
+
+.mybutton:hover {
+    background-color:#ffffff;
+    color:#555555;
+    border-color:#ffffff;
+}
+
+.mybutton:focus {
+  background-color:#ffffff;
+  color:#666666;
+  border-color:#ffffff;
+}  

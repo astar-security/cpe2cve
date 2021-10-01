@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>CPE Checker</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/css/bootstrap.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/css/font-awesome.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/css/animate.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/css/hamburgers.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/css/select2.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/css/util.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/css/main.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/css/button.css') }}">
+<meta name="robots" content="noindex, follow">
+</head>
+<body>
+  <div class="bg-contact3" >
+<div class="container-contact3">
+<div class="wrap-contact3">
+<form action="" method="POST" class="contact3-form validate-form">
+<span class="contact3-form-title">
+Vérifier les vulnérabilités d'un logiciel
+</span>
+<div class="wrap-contact3-form-radio">
+<div class="contact3-form-radio m-r-42">
+<input class="input-radio3" id="radio1" type="radio" name="choice" value="cpe" checked="checked">
+<label class="label-radio3" for="radio1">
+Soumettre des CPE
+</label>
+</div>
+<div class="contact3-form-radio">
+<input class="input-radio3" id="radio2" type="radio" name="choice" value="name">
+<label class="label-radio3" for="radio2">
+Soumettre des noms
+</label>
+</div>
+</div>
+<div class="wrap-input3 validate-input" >
+  <input class="input3" type="text" name="api" placeholder="Votre clé API" value="{{ api }}">
+<span class="focus-input3"></span>
+</div>
+<div class="wrap-input3 validate-input">
+  <textarea class="input3" name="cots" placeholder="Un logiciel par ligne">{{ cots }}</textarea>
+<span class="focus-input3"></span>
+</div>
+<div class="wrap-input3 input3-select" style=color:#ffffff;border-bottom-width:0px;">
+Attention : cette méthode est moins fiable que les CPE !
+</div>
+<div>
+  <button class="mybutton">
+    ENVOYER</button>
+</div>
+</form>
+{% with feedbacks = get_flashed_messages() %}
+  {% if feedbacks %}
+    {% for feed in feedbacks %}
+    <div style="margin:10px 0px;color:#FFFFFF;">{{ feed }}</div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+{% if result %}
+<div style="margin:10px 0px;">
+  <form action="" method="POST">
+  <button class="mybutton">Télécharger en CSV</button>
+  <input type="hidden" name="result" value="download">
+  <p name="result" style="color:#ffffff;margin:20px 0px;font-family:DejaVu Sans Mono;">
+  {% for res in result %}
+    {{ res }}<br/>
+  {% endfor %} 
+  </p>
+  </form>
+</div>
+{% endif %}
+</div>
+</div>
+</div>
+<script src="{{ url_for('static', filename='js/jquery-3.2.1.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/popper.js') }}"></script>
+<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+<script src="{{ url_for('static', filename='js/select2.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/button.js') }}"></script>
+</body>
+</html>
+
