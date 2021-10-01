@@ -20,28 +20,28 @@
     <div class="wrap-contact3">
       <form action="" method="POST" class="contact3-form validate-form">
         <span class="contact3-form-title">
-          Vérifier les vulnérabilités d'un logiciel
+          CPE2CVE: check vulnerabilities of your COTS
         </span>
         <div class="wrap-contact3-form-radio">
           <div class="contact3-form-radio m-r-42">
             <input class="input-radio3" id="radio1" type="radio" name="choice" value="csv" checked="checked">
             <label class="label-radio3" for="radio1">
-              Résultat en CSV
+              CSV Result
             </label>
           </div>
           <div class="contact3-form-radio">
             <input class="input-radio3" id="radio2" type="radio" name="choice" value="pdf">
             <label class="label-radio3" for="radio2">
-              Résultat en PDF
+              PDF Result
             </label>
           </div>
         </div>
         <div class="wrap-input3 validate-input">
-          <textarea class="input3" name="cots" placeholder="Un logiciel par ligne au format CPE">{{ cots }}</textarea>
+          <textarea class="input3" name="cots" placeholder="One product per line in the CPE format">{{ cots }}</textarea>
           <span class="focus-input3"></span>
         </div>
         <div>
-          <button class="mybutton" name"envoyer">ENVOYER</button>
+          <button class="mybutton" name"envoyer">SEND</button>
         </div>
       </form>
       {% if message %}
