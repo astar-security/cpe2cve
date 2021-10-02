@@ -14,7 +14,7 @@ pip install pdfkit
 apt install wkhtmltopdf
 ```
 
-For the web based version, python flash is needed.
+For the web based version, python flask is needed.
 
 ## usage
 
