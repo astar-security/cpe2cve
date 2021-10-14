@@ -185,7 +185,7 @@ def main():
             print("[!] indicate at least a CPE (--cpe) or an input file with one CPE per line (--file)")
             exit(1)
     except Exception as e:
-        print(f"[!] Bad CPE format: {e}:{line}")
+        print(f"[!] Bad CPE format: {e}")
         exit(1)
     print("[+] Valid CPE")
     print(f"[*] Searching vulnerabilities for the {len(cpe)} CPE given")
