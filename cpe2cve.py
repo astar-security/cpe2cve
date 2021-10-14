@@ -23,6 +23,7 @@ format:
         'total':15,                       # number of CVE concerning this CPE
         'highest': 9.8,                   # highest CVSS score in all the CVEs
         'remotelyExploitable': True       # True if there is an available exploit for a network vector
+        'dangerous': 3                    # number of CVE with CVSS > 9 and remotely exploitable
         'cve': {
             'CVE-2021-25329': {
                 'score': 4.4,                           # The CVSSv2 or CVSSv3 score
@@ -37,7 +38,7 @@ def cpe2cve(cpe, api):
     # Check the format upside to understand how the data are stored in the vulns dict
     vulns = {}
     for c in cpe:
-        vulns[c.cpe_str] = {"total":0, "cve":{}, "highest":0.0, "remotelyExploitable":False, "friendlyname": f"{c.get_product()[0]} {c.get_version()[0]}"}
+        vulns[c.cpe_str] = {"total":0, "cve":{}, "highest":0.0, "remotelyExploitable":False, "dangerous": 0, "friendlyname": f"{c.get_product()[0]} {c.get_version()[0]}"}
         # call to the NIST APÏ
         req = requests.get(f"{api}?cpeMatchString={c.cpe_str}&resultsPerPage=100")
         if req.status_code != 200:
@@ -61,6 +62,8 @@ def cpe2cve(cpe, api):
                 # check if vuln is exploitable from network
                 if "AV:N" in cvss['vectorString']:
                     vulns[c.cpe_str]["remotelyExploitable"] = True
+                    if cvss['baseScore'] > 9.0 :
+                        vulns[c.cpe_str]["dangerous"] += 1
                 # Update the highest risk if necessary
                 vulns[c.cpe_str]['highest'] = max(vulns[c.cpe_str]['highest'], cvss['baseScore'])
     return vulns
@@ -82,7 +85,9 @@ def export2pdf(vulns, output):
     vulnproduct = sum([vulns[i]['total']>0 for i in vulns])
     html += f"<strong>{vulnproduct}</strong> of them are <strong>vulnerable</strong><br/>"
     sumvuln = sum([vulns[i]['total'] for i in vulns])
-    html += f"A total of <strong>{sumvuln}</strong> vulnerabilities were found</p>"
+    html += f"A total of <strong>{sumvuln}</strong> vulnerabilities were found<br/>"
+    sumdangerous = sum([vulns[i]['dangerous'] for i in vulns])
+    html += f"<strong>{sumdangerous}</strong> of them are critical AND remotely exploitable</p>"
     html += "<h2>Status by product</h2>"
     html += "<table><thead><tr><th>Product</th><th>CPE</th><th>CVE</th><th>Risk</th><th>Remotely exploitable</th></tr></thead><tbody>"
     fig, ax = plt.subplots()
@@ -174,13 +179,13 @@ def main():
             with open(args.file) as f:
                 for line in f.readlines():
                     #remove space and newlines char from each line
-                    l = line.lower().strip('\n\r')
+                    l = line.lower().strip(' \n\r')
                     cpe.append(CPE(l))
         else:
             print("[!] indicate at least a CPE (--cpe) or an input file with one CPE per line (--file)")
             exit(1)
     except Exception as e:
-        print(f"[!] Bad CPE format: {e}")
+        print(f"[!] Bad CPE format: {e}:{line}")
         exit(1)
     print("[+] Valid CPE")
     print(f"[*] Searching vulnerabilities for the {len(cpe)} CPE given")
@@ -192,3 +197,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
